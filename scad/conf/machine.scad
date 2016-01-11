@@ -1,1 +1,1 @@
-include <sturdy_config.scad>
+include <noah_config.scad>
