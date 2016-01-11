@@ -912,7 +912,7 @@ module machine_assembly(show_bed = true, show_heatshield = true, show_spool = tr
         }
 
         translate([0, Y0, 0]) {
-            x_axis_assembly(true);
+            x_axis_assembly(false);
             z_axis_assembly();
         }
 

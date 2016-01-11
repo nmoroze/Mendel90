@@ -7,7 +7,7 @@
 //
 // Configuration file
 //
-echo("DiBond:");
+echo("Noah's Custom Mendel90:");
 
 Z_bearings = LM8UU;
 Y_bearings = LM8UU;
@@ -19,27 +19,27 @@ Z_motor = NEMA17;
 
 hot_end = JHeadMk5;
 
-X_travel = 200;
-Y_travel = 200;
+X_travel = 150;
+Y_travel = 150;
 Z_travel = 200;
 
-bed_depth = 214;
-bed_width = 214;
+bed_depth = 152;
+bed_width = 152;
 bed_pillars = M3x20_pillar;
 bed_glass = glass2;
 bed_thickness = pcb_thickness + sheet_thickness(bed_glass);    // PCB heater plus glass sheet
-bed_holes = [209, 209];
+bed_holes = [147, 147];
 
-base = DiBond;                  // Sheet material used for the base. Needs to be thick enough to screw into.
+base = PMMA6;                  // Sheet material used for the base. Needs to be thick enough to screw into.
 base_corners = 25;
 base_nuts = true;
 
-frame = DiBond;
+frame = PMMA6;
 frame_corners = 25;
 frame_nuts = true;
 
 case_fan = fan80x38;
-psu = ALPINE500;
+//psu = ALPINE500;
 controller = Melzi;
 spool = spool_300x85;
 bottom_limit_switch = false;
