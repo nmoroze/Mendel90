@@ -107,9 +107,9 @@ Y_carriage_rad = 3;                     // corner radius
 Z_clearance = 10;                       // How close the top of the object gets to the gantry
 belt_clearance = 0.2;                   // clearance of belt clamp slots
 
-X_bar_dia = bearing_rod_dia(X_bearings);      // rod sizes to match the bearings
-Y_bar_dia = bearing_rod_dia(Y_bearings);
-Z_bar_dia = bearing_rod_dia(Z_bearings);
+X_bar_dia = 20;      // rod sizes to match the bearings
+Y_bar_dia = 20;
+Z_bar_dia = 20; 
 
 Y_idler_bearing = BB624;
 X_idler_bearing = BB624;

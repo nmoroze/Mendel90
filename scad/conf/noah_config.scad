@@ -32,7 +32,7 @@ bed_holes = [147, 147];
 
 base = PMMA6;                  // Sheet material used for the base. Needs to be thick enough to screw into.
 base_corners = 25;
-base_nuts = true;
+base_nuts = true; // look into this - is false in mendel config
 
 frame = PMMA6;
 frame_corners = 25;
@@ -52,21 +52,21 @@ cnc_sheets = true;                 // If sheets are cut by CNC we can use slots,
 //raspberry_pi_camera = true;
 //light_strip = SPS125;
 
-Y_carriage = DiBond;
+Y_carriage = PMMA6;
 
 pulley_type = GT2x20_metal_pulley;
 X_belt = GT2x6;
 Y_belt = GT2x6;
 
 motor_shaft = 5;
-Z_screw_dia = 6;            // Studding for Z axis
+Z_screw_dia = 8;            // Studding for Z axis
 
-Y_carriage_depth = bed_holes[1] + 7;
-Y_carriage_width = bed_holes[0] + 7;
+Y_carriage_depth = bed_holes[1] + 8;
+Y_carriage_width = bed_holes[0] + 8;
 
-Z_nut_radius = M6_nut_radius;
-Z_nut_depth = M6_nut_depth;
-Z_nut = M6_nut;
+Z_nut_radius = M8_nut_radius;
+Z_nut_depth = M8_nut_depth;
+Z_nut = M8_nut;
 
 //
 // Default screw use where size doesn't matter

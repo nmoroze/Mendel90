@@ -8,6 +8,7 @@
 // main assembly
 //
 include <conf/config.scad>
+use <vitamins/vslot.scad>
 use <bed.scad>
 use <z-screw_pointer.scad>
 use <bar-clamp.scad>
@@ -49,7 +50,8 @@ module x_axis_assembly(show_extruder) {
     for(side = [-1,1])
         translate([(idler_end + motor_end) / 2 + eta, side * x_bar_spacing() / 2, Z + Z0])
             rotate([0,90,0])
-                rod(X_bar_dia, X_bar_length);
+                translate([0, 0, -X_bar_length/2])
+                    vslot(X_bar_length, 1);
 
     translate([-X + X_origin, 0, Z + Z0 + x_carriage_offset()])
         rotate([180, 0, 180])
@@ -153,8 +155,8 @@ module z_end(motor_end) {
             rotate([180, 0, 0])
                 nut(Z_nut, brass = true);
 
-        translate([z_bar_offset(), 0, Z_bar_length / 2])
-            rod(Z_bar_dia, Z_bar_length);
+        translate([z_bar_offset(), 0, 0])
+            vslot(Z_bar_length, 1);
 
         translate([z_bar_offset(), gantry_setback, Z_bar_length - bar_clamp_depth / 2]) {
             rotate([90, motor_end ? 90 : - 90, 0])
@@ -207,11 +209,12 @@ Y_belt_gap = Y_belt_anchor_i - Y_belt_anchor_m - 2 * Y_belt_end;
 
 //
 // supported bar
+// TODO: modify this to support extrusion
 //
 module rail(length, height, endstop) {
-    translate([0, 0, height])
+    translate([0, length/2, height])
         rotate([90,0,0])
-            rod(Y_bar_dia, length);
+            vslot(length, 1); 
 
     for(end = [-1, 1])
         translate([0, end * (length / 2 - bar_clamp_depth / 2), 0])
@@ -924,7 +927,6 @@ module machine_assembly(show_bed = true, show_heatshield = true, show_spool = tr
     }
     end("machine_assembly");
 }
-
 
 
 machine_assembly(true);

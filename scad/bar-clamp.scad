@@ -13,11 +13,11 @@ include <positions.scad>
 nut_trap_meat = 4;                  // how much plastic above the nut trap
 wall = 3;
 
-function bar_clamp_inner_rad(d) = d / 2;
-function bar_clamp_outer_rad(d) = bar_clamp_inner_rad(d) + bar_clamp_band;
+function bar_clamp_inner_rad(d) = d;
+function bar_clamp_outer_rad(d) = 2;
 function bar_clamp_stem(d) = bar_clamp_inner_rad(d) + bar_clamp_outer_rad(d) + bar_clamp_tab - 2;
 function bar_clamp_length(d) = bar_clamp_tab + bar_clamp_stem(d) + bar_clamp_tab;
-function bar_rail_offset(d) = bar_clamp_tab + d / 2 + bar_clamp_band;
+function bar_rail_offset(d) = bar_clamp_length(d) / 2; 
 
 function bar_clamp_switch_y_offset() = 12;
 
@@ -71,33 +71,24 @@ module bar_clamp(d, h, w, switch = false, yaxis = false) {
                         union() {
                             translate([0, tab_height / 2, 0])
                                 square([length, tab_height], center = true);            // base
-                            translate([0, h / 2, 0])
-                                square([stem, h], center = true);                       // stem
-                            translate([(stem/2 - outer_rad), h, 0])
-                                circle(r = outer_rad, center = true);                   // band
-                            translate([-stem/2 ,h,0])
-                                square([stem - outer_rad, outer_rad]);                  // band tab
-
+                            translate([0, h/2 + d/2 + bar_clamp_outer_rad(d), 0])
+                                square([stem, h + d/2 + bar_clamp_outer_rad(d)], center = true);                       // stem
                         }
-                        translate([(stem/2 - outer_rad), h, 0])
-                            poly_circle(r = inner_rad, center = true);                  // bore
-
-                        translate([-rail_offset, h, 0])
-                            square([stem, gap]);                                        // gap
-
-                        }
+                        translate([0, h, 0])
+                            square([d, d], center=true); 
                     }
+                }
                 //
                 // plastic saving cavity
                 //
-                translate([0, -cavity_l / 2 - bar_clamp_tab - wall, cavity_h / 2 - eta])
-                    cube([cavity_w, cavity_l, cavity_h], center = true);
+                //translate([0, -cavity_l / 2 - bar_clamp_tab - wall, cavity_h / 2 - eta])
+                  //  cube([cavity_w, cavity_l, cavity_h], center = true);
                 //
                 // nut trap
                 //
-                translate([0,-length + 1.5 * bar_clamp_tab,0])
+                /*translate([0,-length + 1.5 * bar_clamp_tab,0])
                     rotate([0,0,90])
-                        nut_trap(screw_clearance_radius, nut_radius, h - nut_trap_meat, horizontal = true);
+                        nut_trap(screw_clearance_radius, nut_radius, h - nut_trap_meat, horizontal = true);*/
                 //
                 // mounting holes
                 //
@@ -154,17 +145,7 @@ module bar_clamp_assembly(d, h, w, switch = false, yaxis = true) {
     rail_offset = bar_rail_offset(d);
 
     color(clamp_color) render() bar_clamp(d, h, w, switch, yaxis);
-    //
-    // screw and washer for clamp
-    //
-    translate([0, rail_offset - length + 1.5 * bar_clamp_tab, h + inner_rad + bar_clamp_band])
-         screw_and_washer(cap_screw, screw_longer_than(outer_rad + nut_trap_meat + washer_thickness(washer) + nut_thickness(nut, true)));
-    //
-    // Captive nut
-    //
-    translate([0, rail_offset - length + 1.5 * bar_clamp_tab, h - nut_trap_meat])
-        rotate([180, 0, 90])
-            nut(nut, true);
+        
     //
     // mounting screws and washers
     //
